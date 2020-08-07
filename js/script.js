@@ -1,10 +1,22 @@
-let money;
-let income;
-let addExpenses;
-let deposit;
-let mission;
-let period;
+let money = 50000;
+let income = 'фриланс';
+let addExpenses = 'Интернет, Телефон, Коммуналка';
+let deposit = true;
+let mission = 2000000;
+let period = 12;
+let budgetDay = money / 30;
 
-alert('hello world');
+console.log(typeof money);
+console.log(typeof income);
+console.log(typeof deposit);
 
-console.log('hello Glo');
+console.log(addExpenses.length);
+
+console.log('Период равен ' + period + ' месяцев');
+console.log('Цель заработать ' + mission + ' рублей');
+
+addExpenses = addExpenses.toLowerCase();
+addExpenses = addExpenses.split(', ');
+
+console.log(addExpenses);
+console.log(budgetDay);

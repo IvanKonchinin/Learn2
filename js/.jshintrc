@@ -12,7 +12,9 @@
 	"jquery": true,
 	"esversion": 6,
 	"eqeqeq": true,
-	"latedef": true,
+	"latedef": false,
+	"newcap":true,
+	"asi":false,
 	"noempty": true,
     "funcscope": true,
     "node": true

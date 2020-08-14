@@ -22,7 +22,7 @@ let appData = {
   deposit: false,
   mission: 50000,
   period: 3,
-  budget:money,
+  budget:+money,
   budgetDay:0,
   budgetMonth: 0,
   expensesMonth: 0,
@@ -31,10 +31,10 @@ let appData = {
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         appData.deposit = confirm('Есть ли у вас депозит в банке?'); 
         for (let i = 0; i < 2; i++) {
-          let query = prompt('Введите обязательную статью расходов?').toLowerCase();  
+          let query = prompt('Введите обязательную статью расходов?', 'кино').toLowerCase();  
           let sum = 0;
           do {
-            sum = prompt('Во сколько это обойдется?');
+            sum = prompt('Во сколько это обойдется?', 200);
           }
           while (!isNumber(sum));
           appData.expenses[query] = +sum;
@@ -83,6 +83,8 @@ console.log('Расходы за месяц: ' + appData.getExpensesMonth());
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
 
-
+for(let key in appData){
+  console.dir('Наша программа включает в себя данные: ключ ' + key + ' и его значение: ' + appData[key]);
+}
 
 

@@ -4,9 +4,21 @@ let isNumber = function (n) {
 };
 
 let isText = function (n) {
-
-  return !isNaN(n) && isFinite(n);
-  
+  if(n === null){
+    return false;
+  }
+  else if(n === ' '){
+    return false;
+  }
+  else if(n === ''){
+    return false;
+  }
+  else if(n.trim().length <= 0){
+    return false;
+  }
+  else{
+    return true;
+  } 
 };
 
 let money;
@@ -42,7 +54,7 @@ let appData = {
       do{
         itemIncome = prompt('Какой у вас доп. заработок?', 'Таксую');
       }
-      while (isText(itemIncome));
+      while (isNumber(itemIncome) || !isText(itemIncome));
       
       do{
         cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?', '10000');
@@ -56,7 +68,7 @@ let appData = {
      do{
        addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'коммуналка');
      }
-     while (isText(addExpenses));
+     while (isNumber(addExpenses) || !isText(addExpenses));
 
     appData.addExpenses = addExpenses.toLowerCase().split(', ');
 
@@ -72,7 +84,7 @@ let appData = {
       do{
         itemExpenses = prompt('Введите обязательную статью расходов?', 'кино').toLowerCase();
       }
-      while(isText(itemExpenses));
+      while (isNumber(itemExpenses) || !isText(itemExpenses));
 
       let cashExpenses;
       do {
@@ -140,8 +152,8 @@ appData.getInfoDeposit();
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
-console.log(appData.addExpenses);
 
+console.log('Наша программа включает в себя данные:');
 for (let key in appData) {
-  console.dir('Наша программа включает в себя данные: ключ ' + key + ' и его значение: ' + appData[key]);
+  console.log('Ключ ', key, 'и его значение: ', appData[key]);
 }

@@ -73,7 +73,7 @@ let appData = {
         itemExpenses = prompt('Введите обязательную статью расходов?', 'кино').toLowerCase();
       }
       while(isText(itemExpenses));
-      
+
       let cashExpenses;
       do {
         cashExpenses = prompt('Во сколько это обойдется?', 200);
@@ -141,6 +141,7 @@ console.log('Расходы за месяц: ' + appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
 console.log(appData.addExpenses);
-// for (let key in appData) {
-//   console.dir('Наша программа включает в себя данные: ключ ' + key + ' и его значение: ' + appData[key]);
-// }
+
+for (let key in appData) {
+  console.dir('Наша программа включает в себя данные: ключ ' + key + ' и его значение: ' + appData[key]);
+}

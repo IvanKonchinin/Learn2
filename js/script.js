@@ -1,5 +1,6 @@
 'use strict';
 
+
 let start = document.getElementById('start'),
       btnPlus = document.getElementsByTagName('button'),
       expenses = document.querySelector('.expenses'),
@@ -61,9 +62,8 @@ let appData = {
   moneyDeposit: 0,
   
   start: function () {
-
-    appData.budget = +salaryAmount.value;
     
+    appData.budget = +salaryAmount.value;
     appData.getExpenses();
     appData.getIncome();
     appData.getExpensesMonth();
@@ -74,7 +74,9 @@ let appData = {
     appData.showResult();
   },
   showResult: function(){
-
+    if (salaryAmount.value.trim() === '') {
+      return false;
+    }
     budgetMonthValue.value = appData.budgetMonth;
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
@@ -149,6 +151,7 @@ let appData = {
     }
   },
   getBudget: function () {
+    
     appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
     appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
@@ -187,13 +190,7 @@ let appData = {
     periodAmount.textContent = periodSelect.value;
     incomePeriodValue.value = appData.calcPeriod();
   },
-  notCalculate: function(){
-    if (salaryAmount.value.trim() === '' || !isNumber(salaryAmount.value)) {
-      salaryAmount.value = '';
-      alert('Ошибка, введите в поле число!');
-      return;
-    }
-  },
+  
   validateOfText: function(){
     let textInputs = document.querySelectorAll('input[placeholder="Наименование"]');
     textInputs.forEach(function (item, i) {
@@ -210,10 +207,12 @@ let appData = {
       });
     });
   },
+  
 };
 
-start.addEventListener('click', appData.notCalculate);
+
 start.addEventListener('click', appData.start);
+
 
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);

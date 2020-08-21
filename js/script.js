@@ -92,6 +92,8 @@ let appData = {
       if(expensesItems.length === 3){
         expensesPlus.style.display = 'none';
       }
+    appData.validateOfText();
+    appData.validateOfNum();
   },
   addIncomeBlock: function () {
     let cloneIncomeItems = incomeItems[0].cloneNode(true);
@@ -102,6 +104,8 @@ let appData = {
     if(incomeItems.length === 3){
       incomePlus.style.display = 'none';
     }
+    appData.validateOfText();
+    appData.validateOfNum();
   },
   getExpenses: function(){
     expensesItems.forEach(function (item) {
@@ -206,14 +210,15 @@ let appData = {
     });
   },
   addDisabledStart: function(){
-    start.setAttribute('disabled', 'disabled');
+    start.disabled = true;
   },
   checkSalaryAmount: function () {
     let salaryAmountValue = document.querySelector('.salary-amount');
     if (isNumber(salaryAmountValue.value)) {
-      start.removeAttribute('disabled');
+      start.disabled = false;
     } else {
-      start.setAttribute('disabled', 'disabled');
+      start.disabled = true;
+
     }
   }
 };

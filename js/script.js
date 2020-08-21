@@ -74,9 +74,7 @@ let appData = {
     appData.showResult();
   },
   showResult: function(){
-    if (salaryAmount.value.trim() === '') {
-      return false;
-    }
+    
     budgetMonthValue.value = appData.budgetMonth;
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
@@ -207,7 +205,17 @@ let appData = {
       });
     });
   },
-  
+  addDisabledStart: function(){
+    start.setAttribute('disabled', 'disabled');
+  },
+  checkSalaryAmount: function () {
+    let salaryAmountValue = document.querySelector('.salary-amount');
+    if (isNumber(salaryAmountValue.value)) {
+      start.removeAttribute('disabled');
+    } else {
+      start.setAttribute('disabled', 'disabled');
+    }
+  }
 };
 
 
@@ -217,9 +225,12 @@ start.addEventListener('click', appData.start);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('change', appData.periodSelect);
+salaryAmount.addEventListener('input', appData.checkSalaryAmount);
+
 document.addEventListener('DOMContentLoaded', function(){
   appData.validateOfText();
   appData.validateOfNum();
+  appData.addDisabledStart();
 });
 
 //appData.getStatusIncome();
@@ -229,3 +240,4 @@ document.addEventListener('DOMContentLoaded', function(){
 // for (let key in appData) {
 //   console.log('Ключ ', key, 'и его значение: ', appData[key]);
 // }
+

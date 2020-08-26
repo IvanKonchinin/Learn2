@@ -26,27 +26,6 @@ let start = document.getElementById('start'),
       incomeTitle = document.querySelector('.income-items .income-title'),
       incomeItems = document.querySelectorAll('.income-items');
 
-let isNumber = function (n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-};
-
-let isText = function (n) {
-  if(n === null){
-    return false;
-  }
-  else if(n === ' '){
-    return false;
-  }
-  else if(n === ''){
-    return false;
-  }
-  else if(n.trim().length <= 0){
-    return false;
-  }
-  else{
-    return true;
-  } 
-};
 
 const AppData = function () {
   this.income = {};
@@ -61,6 +40,10 @@ const AppData = function () {
   this.budget = 0;
   this.percentDeposit = 0;
   this.moneyDeposit = 0;
+};
+
+AppData.prototype.isNumber = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
 AppData.prototype.start = function () {
@@ -191,12 +174,12 @@ AppData.prototype.addExpensesBlock = function () {
       do {
         this.percentDeposit = prompt('Какой годовой процент?', 10);
       }
-      while (!isNumber(this.percentDeposit));
+      while (!this.isNumber(this.percentDeposit));
 
       do {
         this.moneyDeposit = prompt('Какая сумма заложена?', 10000);
       }
-      while (!isNumber(this.moneyDeposit));
+      while (!this.isNumber(this.moneyDeposit));
     }
   };
 
@@ -233,7 +216,7 @@ AppData.prototype.addExpensesBlock = function () {
 
   AppData.prototype.checkSalaryAmount = function () {
     let salaryAmountValue = document.querySelector('.salary-amount');
-    start.disabled = (isNumber(salaryAmountValue.value)) ? false : true;
+    start.disabled = (this.isNumber(salaryAmountValue.value)) ? false : true;
   };
 
   AppData.prototype.blockInputsLeft = function () {
@@ -248,6 +231,13 @@ AppData.prototype.addExpensesBlock = function () {
   };
 
   AppData.prototype.resetInputs = function () {
+    
+    const appData2 = new AppData();
+
+    for(let key in appData2){
+      appData[key] = appData2[key];
+    }
+
     let allInputs = document.querySelectorAll('input');
     allInputs.forEach(function (item) {
       item.disabled = false;
@@ -277,25 +267,10 @@ AppData.prototype.addExpensesBlock = function () {
       });
     }
 
-
     periodAmount.textContent = 1;
     cancel.style.display = 'none';
     start.style.display = 'block';
     start.disabled = true;
-
-    this.income = {};
-    this.incomeMonth = 0;
-    this.addIncome = [];
-    this.expenses = {};
-    this.addExpenses = [];
-    this.deposit = false;
-    this.budgetDay = 0;
-    this.budgetMonth = 0;
-    this.expensesMonth = 0;
-    this.budget = 0;
-    this.percentDeposit = 0;
-    this.moneyDeposit = 0;
-
     incomePlus.disabled = false;
     expensesPlus.disabled = false;
   };
@@ -307,7 +282,7 @@ AppData.prototype.eventListeners = function(){
   expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
   incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
   periodSelect.addEventListener('change', this.periodSelect.bind(this));
-  salaryAmount.addEventListener('input', this.checkSalaryAmount);
+  salaryAmount.addEventListener('input', this.checkSalaryAmount.bind(this));
   document.addEventListener('DOMContentLoaded', function () {
     this.validateOfText();
     this.validateOfNum();

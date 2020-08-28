@@ -1,30 +1,30 @@
 'use strict';
 
 
-let start = document.getElementById('start'),
-      cancel = document.getElementById('cancel'),
-      btnPlus = document.getElementsByTagName('button'),
-      expenses = document.querySelector('.expenses'),
-      incomePlus = btnPlus[0],
-      expensesPlus = btnPlus[1],
-      depositCheck = document.querySelector('#deposit-check'),
-      additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
-      budgetMonthValue = document.querySelector('.budget_month-value'),
-      budgetDayValue = document.querySelector('.budget_day-value'),
-      expensesMonthValue = document.querySelector('.expenses_month-value'),
-      additionalIncomeValue = document.querySelector('.additional_income-value'),
-      additionalExpensesValue = document.querySelector('.additional_expenses-value'),
-      incomePeriodValue = document.querySelector('.income_period-value'),
-      targetMonthValue = document.querySelector('.target_month-value'),
-      expensesTitle = document.querySelector('.expenses-title'),
-      expensesItems = document.querySelectorAll('.expenses-items'),
-      salaryAmount = document.querySelector('.salary-amount'),
-      additionalExpensesItem = document.querySelector('.additional_expenses-item'),
-      targetAmount = document.querySelector('.target-amount'),
-      periodSelect = document.querySelector('.period-select'),
-      periodAmount = document.querySelector('.period-amount'),
-      incomeTitle = document.querySelector('.income-items .income-title'),
-      incomeItems = document.querySelectorAll('.income-items');
+const start = document.getElementById('start');
+const cancel = document.getElementById('cancel');
+const btnPlus = document.getElementsByTagName('button');
+const expenses = document.querySelector('.expenses');
+const incomePlus = btnPlus[0];
+const expensesPlus = btnPlus[1];
+const depositCheck = document.querySelector('#deposit-check');
+const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+const budgetMonthValue = document.querySelector('.budget_month-value');
+const budgetDayValue = document.querySelector('.budget_day-value');
+const expensesMonthValue = document.querySelector('.expenses_month-value');
+const additionalIncomeValue = document.querySelector('.additional_income-value');
+const additionalExpensesValue = document.querySelector('.additional_expenses-value');
+const incomePeriodValue = document.querySelector('.income_period-value');
+const targetMonthValue = document.querySelector('.target_month-value');
+const expensesTitle = document.querySelector('.expenses-items .expenses-title');
+let expensesItems = document.querySelectorAll('.expenses-items');
+const salaryAmount = document.querySelector('.salary-amount');
+const additionalExpensesItem = document.querySelector('.additional_expenses-item');
+const targetAmount = document.querySelector('.target-amount');
+const periodSelect = document.querySelector('.period-select');
+const periodAmount = document.querySelector('.period-amount');
+const incomeTitle = document.querySelector('.income-items .income-title');
+let incomeItems = document.querySelectorAll('.income-items');
 
 
 class AppData {
@@ -72,7 +72,7 @@ showResult() {
 
 addExpensesBlock() {
 
-    let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    const cloneExpensesItem = expensesItems[0].cloneNode(true);
     cloneExpensesItem.querySelector('.expenses-title').value = '';
     cloneExpensesItem.querySelector('.expenses-amount').value = '';
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
@@ -86,7 +86,7 @@ addExpensesBlock() {
 }
 
 addIncomeBlock() {
-  let cloneIncomeItem = incomeItems[0].cloneNode(true);
+  const cloneIncomeItem = incomeItems[0].cloneNode(true);
   cloneIncomeItem.querySelector('.income-title').value = '';
   cloneIncomeItem.querySelector('.income-amount').value = '';
   incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
@@ -130,7 +130,7 @@ getAddExpenses() {
 
 getAddIncome() {
     additionalIncomeItem.forEach(function (item) {
-      let itemValue = item.value.trim();
+      const itemValue = item.value.trim();
       if (itemValue !== '') {
         this.addIncome.push(itemValue);
       }

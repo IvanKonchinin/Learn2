@@ -205,8 +205,21 @@ checkSalaryAmount() {
     const salaryAmountValue = document.querySelector('.salary-amount');
     const depositCheck = document.getElementById('deposit-check');
   
-    start.disabled = (this.isNumber(salaryAmountValue.value) || depositCheck.checked === false) ? false : true;
-
+  if (depositCheck.checked && salaryAmountValue.value === ''){
+    start.disabled = true;
+  } 
+  else if (salaryAmountValue.value === '' && !depositCheck.checked){
+    start.disabled = true;
+  }
+  else if (depositCheck.checked && salaryAmountValue.value !== '') {
+    start.disabled = true;
+  }
+  else if (this.isNumber(salaryAmountValue.value)) {
+    start.disabled = false;
+  }
+  else{
+    start.disabled = false;
+  }
   }
 
 blockInputsLeft(){
@@ -280,18 +293,14 @@ resetInputs() {
 
 changePercent(){
   const valueSelect = this.value;
-  if (valueSelect === 'other' && depositAmount.value === ''){
-    start.disabled = true;
+  if (valueSelect === 'other'){
     depositPercent.style.display = 'inline-block';
     depositPercent.addEventListener('input', ()=>{
     depositPercent.value = depositPercent.value.replace(/[^0-9]/i, '');
-      
       if (+depositPercent.value > 100) {
         alert('Введите число в диапазоне от 0 до 100!');
         depositPercent.value = '';
       }
-    
-      
     });
   }
   
@@ -307,8 +316,7 @@ changePercent(){
   }
 
   depositPercent.addEventListener('input', () => {
-    const depositBank = document.querySelector('.deposit-bank').value;
-    if (depositPercent.value === '' || depositAmount.value === '' || salaryAmount === '' || depositBank === ''){
+    if (depositPercent.value === '' || depositAmount.value === '' || salaryAmount.value === '' || depositBank.value === ''){
       start.disabled = true;
     }else{
       start.disabled = false;
@@ -317,7 +325,7 @@ changePercent(){
 
   depositAmount.addEventListener('input', () => {
     const depositBank = document.querySelector('.deposit-bank').value;
-    if (depositAmount.value === '' || depositPercent.value === '' || salaryAmount === '' || depositBank === '') {
+    if (depositAmount.value === '' || depositPercent.value === '' || salaryAmount.value === '' || depositBank.value === '') {
       start.disabled = true;
     } else {
       start.disabled = false;
@@ -326,22 +334,22 @@ changePercent(){
 }
 
 depositHandler(){
-  if(depositCheck.checked && salaryAmount.value !== ''){
+  if(depositCheck.checked){
     start.disabled = true;
     depositBank.style.display = 'inline-block';
     depositAmount.style.display = 'inline-block';
     this.deposit = true;
     depositBank.addEventListener('change', this.changePercent);
-    
   } 
- 
+  
   else {
-    
+    start.disabled = false;
     depositBank.style.display = 'none';
     depositAmount.style.display = 'none';
     depositPercent.style.display = 'none';
     depositBank.value = '';
     depositAmount.value = '';
+    depositPercent.value = '';
     this.deposit = false;
     depositBank.removeEventListener('change', this.changePercent);
   }
@@ -361,9 +369,7 @@ eventListeners(){
     this.addDisabledStart();
     
   }.bind(this));
-
   depositCheck.addEventListener('change', this.depositHandler.bind(this));
-
 }
 }
 
